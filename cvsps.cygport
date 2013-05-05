@@ -1,0 +1,27 @@
+NAME="cvsps"
+VERSION=2.2b1
+RELEASE=2
+CATEGORY="Devel"
+SUMMARY="Patchsets for CVS"
+DESCRIPTION="CVSps is a program for generating 'patchset' information from a
+CVS repository. A patchset in this case is defined as a set of changes made to
+a collection of files, and all committed at the same time (using a single 'cvs
+commit' command). This information is valuable to seeing the big picture of the
+evolution of a cvs project."
+HOMEPAGE="http://www.cobite.com/cvsps/"
+SRC_URI="http://www.cobite.com/cvsps/${NAME}-${VERSION}.tar.gz"
+PATCH_URI="
+	http://pkgs.fedoraproject.org/cgit/cvsps.git/plain/cvsps-2.2b1-dynamic-logbuf.patch
+	http://pkgs.fedoraproject.org/cgit/cvsps.git/plain/cvsps-2.2b1-man.patch
+	http://pkgs.fedoraproject.org/cgit/cvsps.git/plain/cvsps-2.2b1-bufferoverflow.patch
+"
+REQUIRES="cvs"
+
+src_compile() {
+	lndirs
+	cd ${B}
+	CFLAGS+=" -DLINUX"
+	cygmake
+}
+
+USE_DESTDIR=no
